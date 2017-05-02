@@ -2,6 +2,7 @@
 
 INSERT INTO factionList (faction_name)
 VALUES
+('Civilian'),
 ('Earth Federation'),
 ('Principality of Zeon'),
 ('TITANS'),
@@ -9,7 +10,13 @@ VALUES
 ('Anti Earth Union Group'),
 ('Londo Bell'),
 ('Newborn Neo Zeon'),
-('Neo America');
+('The Sleeves'),
+('Neo Japan'),
+('Neo America'),
+('Neo China'),
+('Neo France'),
+('Neo Russia'),
+('Shuffle Alliance');
 
 INSERT INTO seriesEra (era_name)
 VALUES
@@ -29,26 +36,38 @@ VALUES
 
 INSERT INTO manufacturer (manufacturer_name)
 VALUES
+('None/Not Available'),
 ('Earth Federation'),
 ('Zeonic'),
+('Principality of Zeon'),
 ('Project V'),
 ('Hervic Company'),
-('Neo America');
+('Neo Japan'),
+('Neo America'),
+('Neo China'),
+('Neo France'),
+('Neo Russia');
 
 INSERT INTO mobileweapon (model, manufacturer)
 VALUES
-('RX-78-2 Gundam', 3),
-('RX-75-4 Guntank', 1),
-('RX-77-2 Guncannon', 1),
-('FF-X7 Core Fighter', 4),
-('MS-06S Zaku II Commander Type', 2),
-('HT-01B Magella Attack', 2),
-('RX-78NT-1 Gundam "Alex"', 1),
-('GF13-006NA Gundam Maxter', 5);
+('None/Not Available', 1),
+('RX-78-2 Gundam', 5),
+('RX-75-4 Guntank', 2),
+('RX-77-2 Guncannon', 2),
+('FF-X7 Core Fighter', 6),
+('MS-06S Zaku II Commander Type', 3),
+('HT-01B Magella Attack', 4),
+('MA-08 Big Zam', 4),
+('DFA-03 Dopp', 4),
+('RX-78NT-1 Gundam "Alex"', 2),
+('GF13-017NJ Shining Gundam', 7),
+('GF13-006NA Gundam Maxter', 8),
+('GF13-011NC Dragon Gundam', 9);
 
 INSERT INTO voiceactor (english, japanese)
 VALUES
 ('Brad Swaile','Tōru Furuya'),
+('Chris Kalhoon', 'Hirotaka Suzuoki'),
 ('Matt Smith', 'Kiyonobu Suzuki'),
 ('Richard Ian Cox', 'Toshio Furukawa'),
 ('Ward Perry', 'Shōzō Iizuka'),
@@ -56,8 +75,12 @@ VALUES
 ('Bill Mondy', 'Tesshô Genda'),
 ('Michael Kopsa','Shūichi Ikeda'),
 ('Lenore Zann', 'Yumi Nakatani'),
+('French Tickner', 'Daisuke Gōri'),
+('Brian Dobson', 'Katsuji Mori'),
 ('Wendee Lee', 'Megumi Hayashibara'),
-('Roger Rhodes', 'Hōchū Ōtsuka');
+('Mark Gatha', 'Tomokazu Seki'),
+('Roger Rhodes', 'Hōchū Ōtsuka'),
+('Zoe Slusar', 'Kappei Yamaguchi');
 
 INSERT INTO serieslist (title,series_era)
 VALUES
@@ -71,7 +94,7 @@ VALUES
 ('Mobile Suit Gundam MS IGLOO: Apocalypse 0079', 1),
 ('Mobile Suit Gundam MS IGLOO 2: The Gravity Front', 1),
 ('Mobile Suit Gundam Unicorn', 1),
-('Mobile Figher: G Gundam', 2),
+('Mobile Fighter: G Gundam', 2),
 ('New Mobile Report Gundam Wing', 3),
 ('Mobile Suit Gundam Wing: Operation Meteor', 3),
 ('New Mobile Report Gundam Wing: Endless Waltz', 3),
@@ -91,15 +114,32 @@ VALUES
 ('Super Deformed Gundam', 13),
 ('Superior Defender Gundam Force', 13);
 
-INSERT INTO castmember (name, faction, mobile_weapon, voice_actor, appears_in)
+INSERT INTO castmember (cast_name, faction, mobile_weapon, voice_actor, appears_in)
 VALUES
-('Amuro Ray', 1, 1, 1, 1),
-('Hayato Kobayashi', 1, 2, 2, 1),
-('Kai Shiden', 1, 3, 3, 1),
-('Ryu Jose', 1, 4, 4, 1),
-('Sayla Mass', 1, 4, 5, 1),
-('Sleggar Law', 1, 3, 6, 1),
-('Char Aznable', 2, 5, 7, 1),
-('Crowley Hamon', 2, 6, 8, 1),
-('Christina Mackenzie', 1, 7, 9, 4),
-('Chibodee Crocket', 5, 8, 10, 11);
+('Amuro Ray', 2, 2, 1, 1),
+('Bright Noa', 2, 1, 2, 1),
+('Hayato Kobayashi', 2, 3, 3, 1),
+('Kai Shiden', 2, 4, 4, 1),
+('Ryu Jose', 2, 5, 5, 1),
+('Sayla Mass', 2, 5, 6, 1),
+('Sleggar Law', 2, 5, 7, 1),
+('Char Aznable', 3, 6, 8, 1),
+('Crowley Hamon', 3, 7, 9, 1),
+('Dozle Zabi', 3, 8, 10, 1),
+('Garma Zabi', 3, 9, 11, 1),
+('Christina Mackenzie', 2, 10, 12, 4),
+('Domon Kasshu', 10, 11, 13, 11),
+('Chibodee Crocket', 11, 12, 14, 11),
+('Sai Saici', 12, 13, 15, 11);
+
+CREATE VIEW compiled
+AS
+SELECT castmember.cast_id, castmember.cast_name, factionList.faction_name, mobileweapon.model, manufacturer.manufacturer_name, voiceactor.english, voiceactor.japanese, serieslist.title, seriesEra.era_name
+FROM castmember, factionList, seriesEra, serieslist, mobileweapon, manufacturer, voiceactor
+WHERE (factionList.faction_id = castmember.faction) 
+AND (mobileweapon.mobileweapon_id = castmember.mobile_weapon)
+AND (manufacturer.manufacturer_id = mobileweapon.manufacturer)
+AND (voiceactor.voice_id = castmember.voice_actor)
+AND (serieslist.series_id = castmember.appears_in)
+AND (seriesEra.era_id = serieslist.series_era)
+AND era_name = 'Universal Century'

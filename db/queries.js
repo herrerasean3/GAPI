@@ -27,8 +27,8 @@ function getAllCast(req, res, next) {
 //Barring any errors with duplicate IDs, will always return exactly one result.
 //Satisfies R in CRUD.
 function getOneCast(req, res, next) {
-  let mealID = parseInt(req.params.id);
-  db.one('select * from castmember where id = $1', mealID)
+  let cast_id = parseInt(req.params.id);
+  db.one('select * from castmember where cast_id = $1', mealID)
     .then(function(data) {
       res.status(200)
         .json({
@@ -48,8 +48,8 @@ function getOneCast(req, res, next) {
 function createCast(req, res, next) {
   req.body.age = parseInt(req.body.age);
   console.log('req.body ===>', req.body)
-  db.none('insert into castmember(name, faction, mobile_weapon, voice_actor, appears_in)' +
-      'values(${name}, ${faction}, ${mobile_weapon}, ${voice_actor}, ${appears_in})',
+  db.none('insert into castmember(cast_name, faction, mobile_weapon, voice_actor, appears_in)' +
+      'values(${cast_name}, ${faction}, ${mobile_weapon}, ${voice_actor}, ${appears_in})',
       req.body)
     .then(function() {
       res.status(200)
@@ -68,7 +68,7 @@ function createCast(req, res, next) {
 //Takes seven total inputs, with the seventh input being the ID targetted for updating.
 //Satisfies U of CRUD.
 function updateCast(req, res, next) {
-  db.none('update castmember set name=$1, faction=$2, mobile_weapon=$3, voice_actor=$4, appears_in=$5, where id=$7', [req.body.item, parseInt(req.body.minutes), parseInt(req.params.id)
+  db.none('update castmember set cast_name=$1, faction=$2, mobile_weapon=$3, voice_actor=$4, appears_in=$5, where cast_id=$7', [req.body.item, parseInt(req.body.minutes), parseInt(req.params.id)
     ])
     .then(function() {
       res.status(200)
@@ -86,7 +86,7 @@ function updateCast(req, res, next) {
 //Satisfies D of CRUD.
 function deleteCast(req, res, next) {
   let mealID = parseInt(req.params.id);
-  db.result('delete from castmember where id = $1', mealID)
+  db.result('delete from castmember where cast_id = $1', cast_id)
     .then(function(result) {
       res.status(200)
         .json({
