@@ -8,10 +8,18 @@ var db = require('../db/queries');
   res.render('index', { title: 'Gundam API' });
 });*/
 
-router.get('/', db.getAllCast);
-router.get('/:id', db.getOneCast);
-router.post('/', db.createCast);
-router.put('/:id', db.updateCast);
-router.delete('/:id', db.deleteCast);
+router.get('/people/', db.getAllCast);
+router.get('/people/:id', db.getOneCast);
+router.post('/people/', db.createCast);
+router.put('/people/:id', db.updateCast);
+router.delete('/people/:id', db.deleteCast);
+
+router.get('/mweapon/', db.getAllMWeapons);
+router.get('/mweapon/:id', db.getOneMWeapon);
+router.post('/mweapon/', db.createMWeapon);
+router.put('/mweapon/:id', db.updateMWeapon);
+router.delete('/mweapon/:id', db.deleteMWeapon);
+
+router.get('/manufacturer/', db.getAllManufacturers);
 
 module.exports = router;

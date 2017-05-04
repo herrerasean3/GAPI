@@ -1,19 +1,37 @@
-# JOINS
+# GAPI
 
-Working in small groups of 2-3, redefine\recreate the exercise you did on  Monday's where your group investigated the SWAPI JSON data and created a main table and at least 2 or more supporting tables.  
+## What the heck is GAPI?
 
-The deliverables for this lab are the following:
+GAPI, or Gundam API, is an API devoted to the Gundam franchise with full range of CRUD support, built primarily using SQL.
 
-- Create a seed file that creates a star_wars_db, the 2 or more supporting tables (which should include a REFERNCE to the main table) and at least 5 entries in each table.
-- The seed file can be divided into two separate files: one that creates the datbase and then imports one or more supporting seed files. 
-- Create a JOIN query for each of the following JOIN types:
-    + Cross
-    + Inner
-    + OUTTER
-    + LEFT OUTTER
-- A readme file that walks the user through importing the table, a readme table that represents the actual tables with at least one or more rows of data and the code used to perform the JOINs. 
+When the API is accessed, it generates a view based on user search terms and serves the resulting view up as accessible content.
 
-Time permitting the instructor will ask at least 2-3 groups to demo their readme tables 
+Supporing logins, valid users may create, edit, or delete entries in the actual database tables.
 
-### BONUS: As a group see if you can score 100% on the following [JOIN quiz](http://sqlzoo.net/wiki/JOIN_Quiz)
+## Why GAPI?
 
+GAPI started as me getting sidetracked a bit in a lab assignment, actually. Rather than make a basic Star Wars database, I decided I'd build one for something I was more passionate about. Following that lab assignment, I continued to work on the database on the side, continually building upon its functionality and depth of data. GAPI is a passion project, from one Real Robot fan to another.
+
+## Project Timetable
+
+Component | Estimated Time | Invested Time | % Complete | Actual Time 
+--- | --- |--- |--- |---
+Database Setup | 4 hours | 5 Minutes | 100% | 5 Minutes 
+GET routes | 4 Hours | 1 hour | 50% | 1 Hours
+POST routes | 4 Hours | 0 minutes | 0% | 0
+DELETE routes | 4 Hours | 0 minutes | 0% | 0
+UPDATE routes | 4 Hours | 0 minutes | 0% | 0
+Backend Scripts | 5 hours | 10 minutes | ?% | 0
+Frontend HTML | 2 Hours | 0 Minutes | 0% | 0
+
+## Database Schema
+
+## Pseudocode
+
+## Wireframing
+
+## Backend Code Sample
+
+## Technologies Used
+
+## Special Thanks to:

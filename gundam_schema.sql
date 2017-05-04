@@ -31,7 +31,7 @@ CREATE TABLE seriesEra (
 
 CREATE TABLE serieslist (
 	series_id SERIAL PRIMARY KEY,
-	title VARCHAR NOT NULL,
+	series_title VARCHAR NOT NULL,
 	series_era INTEGER REFERENCES seriesEra(era_id) NOT NULL
 );
 
@@ -55,15 +55,16 @@ CREATE TABLE manufacturer (
 CREATE TABLE mobileweapon (
 	mobileweapon_id SERIAL PRIMARY KEY,
 	model VARCHAR NOT NULL,
-	manufacturer INTEGER REFERENCES manufacturer(manufacturer_id) NOT NULL
+	manufacturer INTEGER REFERENCES manufacturer(manufacturer_id) NOT NULL,
+	produced_in INTEGER REFERENCES serieslist(series_id) NOT NULL
 );
 
 /* CREATE VOICE ACTORS */
 
 CREATE TABLE voiceactor (
 	voice_id SERIAL PRIMARY KEY,
-	english VARCHAR NOT NULL,
-	japanese VARCHAR NOT NULL
+	english_voice VARCHAR NOT NULL,
+	japanese_voice VARCHAR NOT NULL
 );
 
 /* CREATE CAST */

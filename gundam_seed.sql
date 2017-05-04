@@ -34,55 +34,7 @@ VALUES
 ('Build Fighters'),
 ('SD Gundam');
 
-INSERT INTO manufacturer (manufacturer_name)
-VALUES
-('None/Not Available'),
-('Earth Federation'),
-('Zeonic'),
-('Principality of Zeon'),
-('Project V'),
-('Hervic Company'),
-('Neo Japan'),
-('Neo America'),
-('Neo China'),
-('Neo France'),
-('Neo Russia');
-
-INSERT INTO mobileweapon (model, manufacturer)
-VALUES
-('None/Not Available', 1),
-('RX-78-2 Gundam', 5),
-('RX-75-4 Guntank', 2),
-('RX-77-2 Guncannon', 2),
-('FF-X7 Core Fighter', 6),
-('MS-06S Zaku II Commander Type', 3),
-('HT-01B Magella Attack', 4),
-('MA-08 Big Zam', 4),
-('DFA-03 Dopp', 4),
-('RX-78NT-1 Gundam "Alex"', 2),
-('GF13-017NJ Shining Gundam', 7),
-('GF13-006NA Gundam Maxter', 8),
-('GF13-011NC Dragon Gundam', 9);
-
-INSERT INTO voiceactor (english, japanese)
-VALUES
-('Brad Swaile','Tōru Furuya'),
-('Chris Kalhoon', 'Hirotaka Suzuoki'),
-('Matt Smith', 'Kiyonobu Suzuki'),
-('Richard Ian Cox', 'Toshio Furukawa'),
-('Ward Perry', 'Shōzō Iizuka'),
-('Alaina Burnett', 'Yō Inoue'),
-('Bill Mondy', 'Tesshô Genda'),
-('Michael Kopsa','Shūichi Ikeda'),
-('Lenore Zann', 'Yumi Nakatani'),
-('French Tickner', 'Daisuke Gōri'),
-('Brian Dobson', 'Katsuji Mori'),
-('Wendee Lee', 'Megumi Hayashibara'),
-('Mark Gatha', 'Tomokazu Seki'),
-('Roger Rhodes', 'Hōchū Ōtsuka'),
-('Zoe Slusar', 'Kappei Yamaguchi');
-
-INSERT INTO serieslist (title,series_era)
+INSERT INTO serieslist (series_title,series_era)
 VALUES
 ('Mobile Suit Gundam', 1),
 ('Mobile Suit Zeta Gundam', 1),
@@ -114,6 +66,54 @@ VALUES
 ('Super Deformed Gundam', 13),
 ('Superior Defender Gundam Force', 13);
 
+INSERT INTO manufacturer (manufacturer_name)
+VALUES
+('None/Not Available'),
+('Earth Federation'),
+('Zeonic'),
+('Principality of Zeon'),
+('Project V'),
+('Hervic Company'),
+('Neo Japan'),
+('Neo America'),
+('Neo China'),
+('Neo France'),
+('Neo Russia');
+
+INSERT INTO mobileweapon (model, manufacturer, produced_in)
+VALUES
+('None/Not Available', 1, 1),
+('RX-78-2 Gundam', 5, 1),
+('RX-75-4 Guntank', 2, 1),
+('RX-77-2 Guncannon', 2, 1),
+('FF-X7 Core Fighter', 6, 1),
+('MS-06S Zaku II Commander Type', 3, 1),
+('HT-01B Magella Attack', 4, 1),
+('MA-08 Big Zam', 4, 1),
+('DFA-03 Dopp', 4, 1),
+('RX-78NT-1 Gundam ''Alex''', 2, 4),
+('GF13-017NJ Shining Gundam', 7, 11),
+('GF13-006NA Gundam Maxter', 8, 11),
+('GF13-011NC Dragon Gundam', 9, 11);
+
+INSERT INTO voiceactor (english_voice, japanese_voice)
+VALUES
+('Brad Swaile','Tōru Furuya'),
+('Chris Kalhoon', 'Hirotaka Suzuoki'),
+('Matt Smith', 'Kiyonobu Suzuki'),
+('Richard Ian Cox', 'Toshio Furukawa'),
+('Ward Perry', 'Shōzō Iizuka'),
+('Alaina Burnett', 'Yō Inoue'),
+('Bill Mondy', 'Tesshô Genda'),
+('Michael Kopsa','Shūichi Ikeda'),
+('Lenore Zann', 'Yumi Nakatani'),
+('French Tickner', 'Daisuke Gōri'),
+('Brian Dobson', 'Katsuji Mori'),
+('Wendee Lee', 'Megumi Hayashibara'),
+('Mark Gatha', 'Tomokazu Seki'),
+('Roger Rhodes', 'Hōchū Ōtsuka'),
+('Zoe Slusar', 'Kappei Yamaguchi');
+
 INSERT INTO castmember (cast_name, faction, mobile_weapon, voice_actor, appears_in)
 VALUES
 ('Amuro Ray', 2, 2, 1, 1),
@@ -132,9 +132,22 @@ VALUES
 ('Chibodee Crocket', 11, 12, 14, 11),
 ('Sai Saici', 12, 13, 15, 11);
 
+/* castmember.cast_id, castmember.cast_name, factionList.faction_name, mobileweapon.model, manufacturer.manufacturer_name, voiceactor.english_voice_voice, voiceactor.japanese_voice, serieslist.series_title, seriesEra.era_name */
+
+DROP VIEW IF EXISTS compiled;
 CREATE VIEW compiled
 AS
-SELECT castmember.cast_id, castmember.cast_name, factionList.faction_name, mobileweapon.model, manufacturer.manufacturer_name, voiceactor.english, voiceactor.japanese, serieslist.title, seriesEra.era_name
+SELECT *
+FROM seriesEra, serieslist, mobileweapon, manufacturer
+WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer)
+AND (serieslist.series_id = mobileweapon.produced_in)
+AND (seriesEra.era_id = serieslist.series_era)
+ORDER BY mobileweapon_id ASC;
+
+DROP VIEW IF EXISTS compiled;
+CREATE VIEW compiled
+AS
+SELECT *
 FROM castmember, factionList, seriesEra, serieslist, mobileweapon, manufacturer, voiceactor
 WHERE (factionList.faction_id = castmember.faction) 
 AND (mobileweapon.mobileweapon_id = castmember.mobile_weapon)
@@ -142,4 +155,4 @@ AND (manufacturer.manufacturer_id = mobileweapon.manufacturer)
 AND (voiceactor.voice_id = castmember.voice_actor)
 AND (serieslist.series_id = castmember.appears_in)
 AND (seriesEra.era_id = serieslist.series_era)
-AND era_name = 'Universal Century'
+ORDER BY cast_id ASC;
