@@ -11,8 +11,10 @@ html,body,div,span,a,li,td,th {
   font-family: 'amuroregular', Helvetica, Arial, sans-serif;
 }
 
-body {
-  padding: 50px;
+header {
+	width 100%;
+	background: black;
+	color: white;
 }
 
 a {
