@@ -11,10 +11,24 @@ html,body,div,span,a,li,td,th {
   font-family: 'amuroregular', Helvetica, Arial, sans-serif;
 }
 
+body {
+	padding: 50px;
+}
+
 header {
 	width 100%;
 	background: black;
 	color: white;
+}
+
+header img {
+	display: inline-block;
+	width: 100px;
+}
+
+header h1 {
+	display: inline-block;
+	margin: 20px, 0;
 }
 
 a {
