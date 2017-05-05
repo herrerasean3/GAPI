@@ -1,6 +1,18 @@
+@font-face {
+    font-family: 'amuroregular';
+    src: url('../fonts/amuro-webfont.woff2') format('woff2'),
+         url('../fonts/amuro-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html,body,div,span,a,li,td,th {
+  font-family: 'amuroregular', Helvetica, Arial, sans-serif;
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {

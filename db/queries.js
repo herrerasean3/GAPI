@@ -22,7 +22,7 @@ function getAllCast(req, res, next) {
 }
 
 function getAllMWeapons(req, res, next) {
-  db.any('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM mobileweapon, manufacturer, seriesEra, serieslist, WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (serieslist.series_id = mobileweapon.produced_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY mobileweapon_id ASC; select model, manufacturer_name, era_name from compiled where mobileweapon_id > 1')
+  db.any('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM mobileweapon, manufacturer, seriesEra, serieslist WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (serieslist.series_id = mobileweapon.produced_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY mobileweapon_id ASC; select model, manufacturer_name, era_name from compiled')
     .then(function(data) {
       console.log('DATA:', data);
       res.status(200)
@@ -55,7 +55,7 @@ function getAllManufacturers(req, res, next) {
 //Satisfies R in CRUD.
 function getOneCast(req, res, next) {
   let cast_id = parseInt(req.params.id);
-  db.one('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM castmember, factionList, seriesEra, serieslist, mobileweapon, manufacturer, voiceactor WHERE (factionList.faction_id = castmember.faction) AND (mobileweapon.mobileweapon_id = castmember.mobile_weapon) AND (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (voiceactor.voice_id = castmember.voice_actor) AND (serieslist.series_id = castmember.appears_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY cast_id ASC; select cast_name, faction_name, model, english_voice, japanese_voice, era_name from compiled where cast_id = $1', cast_id)
+  db.one('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM castmember, factionList, seriesEra, serieslist, mobileweapon, manufacturer, voiceactor WHERE (factionList.faction_id = castmember.faction) AND (mobileweapon.mobileweapon_id = castmember.mobile_weapon) AND (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (voiceactor.voice_id = castmember.voice_actor) AND (serieslist.series_id = castmember.appears_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY cast_id ASC; SELECT cast_name, faction_name, model, english_voice, japanese_voice, era_name from compiled WHERE cast_id = $1', cast_id)
     .then(function(data) {
       res.status(200)
         .json({
@@ -69,7 +69,21 @@ function getOneCast(req, res, next) {
 
 function getOneMWeapon(req, res, next) {
   let mobileweapon_id = parseInt(req.params.id);
-  db.one('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM seriesEra, serieslist, mobileweapon, manufacturer WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (serieslist.series_id = mobileweapon.produced_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY mobileweapon_id ASC; select model, manufacturer_name, era_name from compiled where mobileweapon_id = $1', mobileweapon_id)
+  db.one('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM mobileweapon, manufacturer, seriesEra, serieslist WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (serieslist.series_id = mobileweapon.produced_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY mobileweapon_id ASC; select model, manufacturer_name, era_name from compiled where mobileweapon_id = $1', mobileweapon_id)
+    .then(function(data) {
+      res.status(200)
+        .json({
+          data: data
+        });
+    })
+    .catch(function(err) {
+      return next(err);
+    });
+}
+
+function getOneManufacturer(req, res, next) {
+  let manufacturer_id = parseInt(req.params.id);
+  db.many('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM manufacturer, mobileweapon, serieslist, seriesEra WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (serieslist.series_id = mobileweapon.produced_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY manufacturer_id ASC; select model, manufacturer_name, era_name from compiled where manufacturer_id = $1', manufacturer_id)
     .then(function(data) {
       res.status(200)
         .json({
@@ -198,5 +212,6 @@ module.exports = {
   createMWeapon: createMWeapon, //CREATE
   updateMWeapon: updateMWeapon, //UPDATE
   deleteMWeapon: deleteMWeapon, //DELETE
-  getAllManufacturers: getAllManufacturers //READ
+  getAllManufacturers: getAllManufacturers, //READ
+  getOneManufacturer: getOneManufacturer //READ
 };

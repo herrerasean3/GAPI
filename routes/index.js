@@ -8,6 +8,10 @@ var db = require('../db/queries');
   res.render('index', { title: 'Gundam API' });
 });*/
 
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'GUNDAM API' });
+});
+
 router.get('/people/', db.getAllCast);
 router.get('/people/:id', db.getOneCast);
 router.post('/people/', db.createCast);
@@ -21,5 +25,6 @@ router.put('/mweapon/:id', db.updateMWeapon);
 router.delete('/mweapon/:id', db.deleteMWeapon);
 
 router.get('/manufacturer/', db.getAllManufacturers);
+router.get('/manufacturer/:id', db.getOneManufacturer);
 
 module.exports = router;
