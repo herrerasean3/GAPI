@@ -13,11 +13,15 @@ html,body,div,span,a,li,td,th {
 
 body {
 	padding: 50px;
+	background-image: url('../images/earthfederation.png');
+	background-color: #0000ff;
+	background-repeat: no-repeat;
+	background-position: center top;
 }
 
 header {
 	width 100%;
-	background: black;
+	background: rgba(0,0,0,0.5);
 	color: white;
 }
 
@@ -28,7 +32,15 @@ header img {
 
 header h1 {
 	display: inline-block;
-	margin: 20px, 0;
+	margin: 0;
+}
+
+main {
+	display: -webkit-flex;
+	background: rgba(255,255,255,0.5);
+	display: flex;
+	-webkit-flex-direction: column;
+	flex-direction: column;
 }
 
 a {

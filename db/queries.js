@@ -12,9 +12,8 @@ function getAllCast(req, res, next) {
     .then(function(data) {
       console.log('DATA:', data);
       res.status(200)
-        .json({
-          data: data
-        });
+        console.log(data)
+      res.render('result', {title:"Gundam API", data:data, datasolo: false});
     })
     .catch(function(err) {
       return next(err);
@@ -26,9 +25,8 @@ function getAllMWeapons(req, res, next) {
     .then(function(data) {
       console.log('DATA:', data);
       res.status(200)
-        .json({
-          data: data
-        });
+        console.log(data)
+      res.render('result', {title:"Gundam API", data:data, datasolo: false});
     })
     .catch(function(err) {
       return next(err);
@@ -40,9 +38,8 @@ function getAllManufacturers(req, res, next) {
     .then(function(data) {
       console.log('DATA:', data);
       res.status(200)
-        .json({
-          data: data
-        });
+        console.log(data)
+      res.render('result', {title:"Gundam API", data:data, datasolo: false});
     })
     .catch(function(err) {
       return next(err);
@@ -58,9 +55,8 @@ function getOneCast(req, res, next) {
   db.one('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM castmember, factionList, seriesEra, serieslist, mobileweapon, manufacturer, voiceactor WHERE (factionList.faction_id = castmember.faction) AND (mobileweapon.mobileweapon_id = castmember.mobile_weapon) AND (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (voiceactor.voice_id = castmember.voice_actor) AND (serieslist.series_id = castmember.appears_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY cast_id ASC; SELECT cast_name, faction_name, model, english_voice, japanese_voice, era_name from compiled WHERE cast_id = $1', cast_id)
     .then(function(data) {
       res.status(200)
-        .json({
-          data: data
-        });
+      console.log(data)
+      res.render('result', {title:"Gundam API", datasolo:data, data: false});
     })
     .catch(function(err) {
       return next(err);
@@ -72,9 +68,8 @@ function getOneMWeapon(req, res, next) {
   db.one('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM mobileweapon, manufacturer, seriesEra, serieslist WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (serieslist.series_id = mobileweapon.produced_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY mobileweapon_id ASC; select model, manufacturer_name, era_name from compiled where mobileweapon_id = $1', mobileweapon_id)
     .then(function(data) {
       res.status(200)
-        .json({
-          data: data
-        });
+      console.log(data)
+      res.render('result', {title:"Gundam API", datasolo:data, data: false});
     })
     .catch(function(err) {
       return next(err);
@@ -86,9 +81,8 @@ function getOneManufacturer(req, res, next) {
   db.many('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM manufacturer, mobileweapon, serieslist, seriesEra WHERE (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (serieslist.series_id = mobileweapon.produced_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY manufacturer_id ASC; select model, manufacturer_name, era_name from compiled where manufacturer_id = $1', manufacturer_id)
     .then(function(data) {
       res.status(200)
-        .json({
-          data: data
-        });
+      console.log(data)
+      res.render('result', {title:"Gundam API", data:data, data: false});
     })
     .catch(function(err) {
       return next(err);
@@ -121,6 +115,24 @@ function createMWeapon(req, res, next) {
   console.log('req.body ===>', req.body)
   db.none('insert into mobileweapon(model, manufacturer, produced_in)' +
       'values(${model}, ${manufacturer}, ${produced_in})',
+      req.body)
+    .then(function() {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Mobile Weapon Inserted'
+        });
+    })
+    .catch(function(err) {
+      return next(err);
+    });
+}
+
+function createManufacturer(req, res, next) {
+  req.body.age = parseInt(req.body.age);
+  console.log('req.body ===>', req.body)
+  db.none('insert into manufacturer(manufacturer_name)' +
+      'values(${manufacturer_name})',
       req.body)
     .then(function() {
       res.status(200)
@@ -168,6 +180,21 @@ function updateMWeapon(req, res, next) {
     });
 }
 
+function updateManufacturer(req, res, next) {
+  db.none('update manufacturer set manufacturer_name=$1 where manufacturer_id=$2', [req.body.manufacturer_name, parseInt(req.params.id)
+    ])
+    .then(function() {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: 'Character Updated'
+        });
+    })
+    .catch(function(err) {
+      return next(err);
+    });
+}
+
 //Deletes the row at the target ID. Simple enough.
 //Satisfies D of CRUD.
 function deleteCast(req, res, next) {
@@ -200,6 +227,37 @@ function deleteMWeapon(req, res, next) {
     });
 }
 
+function deleteManufacturer(req, res, next) {
+  let manufacturerID = parseInt(req.params.id);
+  db.result('delete from manufacturer where manufacturer_id = $1', manufacturerID)
+    .then(function(result) {
+      res.status(200)
+        .json({
+          status: 'success',
+          message: `Removed Mobile Weapon at ${result.rowCount}`
+        });
+    })
+    .catch(function(err) {
+      return next(err);
+    });
+}
+
+// function getTest(req, res, next) {
+//   let target = req.query.target;
+//   let filter = req.query.filter;
+//   db.any(`DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM castmember, factionList, seriesEra, serieslist, mobileweapon, manufacturer, voiceactor WHERE (factionList.faction_id = castmember.faction) AND (mobileweapon.mobileweapon_id = castmember.mobile_weapon) AND (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (voiceactor.voice_id = castmember.voice_actor) AND (serieslist.series_id = castmember.appears_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY cast_id ASC; select ${target} from compiled where ${filter}`)
+//     .then(function(data) {
+//       console.log('DATA:', data);
+//       res.status(200)
+//         .json({
+//           data: data
+//         });
+//     })
+//     .catch(function(err) {
+//       return next(err);
+//     });
+// }
+
 //CRUD
 module.exports = {
   createCast: createCast, //CREATE
@@ -213,5 +271,8 @@ module.exports = {
   updateMWeapon: updateMWeapon, //UPDATE
   deleteMWeapon: deleteMWeapon, //DELETE
   getAllManufacturers: getAllManufacturers, //READ
-  getOneManufacturer: getOneManufacturer //READ
+  getOneManufacturer: getOneManufacturer, //READ
+  createManufacturer: createManufacturer, //CREATE
+  updateManufacturer: updateManufacturer, //UPDATE
+  deleteManufacturer: deleteManufacturer //DELETE
 };

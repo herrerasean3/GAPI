@@ -12,6 +12,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'GUNDAM API' });
 });
 
+//Url for testing query string filtering. Very limited applications due to WHERE arguments causing errors.
+//router.get('/test/', db.getTest);
+
 router.get('/people/', db.getAllCast);
 router.get('/people/:id', db.getOneCast);
 router.post('/people/', db.createCast);

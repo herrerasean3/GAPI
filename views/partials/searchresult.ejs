@@ -1,0 +1,15 @@
+	<textarea rows="25" cols="100" readonly>
+	<% data.forEach(function(d) { %>
+	{
+	Character Name:	<%= d.cast_name %>
+	Faction:	<%= d.faction_name %>
+	Mobile Weapon:	<%= d.model %>
+	Manufacturer:	<%= d.manufacturer_name %>
+	Produced in:	<%= d.produced_in %>
+	English Voice:	<%= d.english_voice %>
+	Japanese Voice:	<%= d.japanese_voice %>
+	Series Title: <%= d.series_title %>
+	Series Era:	<%= d.era_name %>
+	}
+	<% }) %>
+    </textarea>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+  <%- include ./partials/head %>
+
+  <body>
+	
+	<%- include ./partials/header %>	
+	
+	<main>
+    	<h1><%= title %></h1>
+
+    	<% if(datasolo) { %>
+    		<%- include ./partials/searchresult_solo %>
+    	<% } %>
+
+    	<% if(data) { %>
+    		<%- include ./partials/searchresult %>
+    	<% } %>
+    </main>  
+
+	<%- include ./partials/script %>
+  </body>
+</html>

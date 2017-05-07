@@ -4,13 +4,24 @@
   <%- include ./partials/head %>
 
   <body>
-	<header>
-	<img src="./images/logo_transparent.png">
-		<h1>Gundam API</h1>
-	</header>
 	
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+	<%- include ./partials/header %>	
+	
+	<main>
+    	<h1><%= title %></h1>
+    	<textarea rows="25" cols="50" readonly>
+    	{
+    		"cast_name": "Amuro Ray",
+    		"faction_name": "Earth Federation",
+    		"model": "RX-78-2 Gundam",
+    		"english_voice": "Brad Swaile",
+    		"japanese_voice": "Tōru Furuya",
+    		"era_name": "Universal Century"
+    	}
+    	</textarea>
+    </main>
+
+    
 
 	<%- include ./partials/script %>
   </body>
