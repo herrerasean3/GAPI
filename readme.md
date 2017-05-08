@@ -36,6 +36,28 @@ Frontend Design | 2 Hours | 3 Hours | 100% | 3 Hours
 
 ## Backend Code Sample
 
+This is an copy of the code used to DROP, CREATE, and SELECT a view generated on a per-request basis. By generating a view from the database, we prevent casual users from accessing and potentially vandalising the database proper. A user authentication system has been planed to further limit access to limit PUT, POST, and DELETE requests.
+
+```javascript
+
+//Runs SELECT * FROM view.
+//Returns everything in the table without filtering.
+//Satisfies R in CRUD.
+function getAllCast(req, res, next) {
+  db.any('DROP VIEW IF EXISTS compiled; CREATE VIEW compiled AS SELECT * FROM castmember, factionList, seriesEra, serieslist, mobileweapon, manufacturer, voiceactor WHERE (factionList.faction_id = castmember.faction) AND (mobileweapon.mobileweapon_id = castmember.mobile_weapon) AND (manufacturer.manufacturer_id = mobileweapon.manufacturer) AND (voiceactor.voice_id = castmember.voice_actor) AND (serieslist.series_id = castmember.appears_in) AND (seriesEra.era_id = serieslist.series_era) ORDER BY cast_id ASC; select cast_name, faction_name, model, english_voice, japanese_voice, era_name from compiled')
+    .then(function(data) {
+      console.log('DATA:', data);
+      res.status(200)
+        console.log(data)
+      res.render('result', {title:"Gundam API", data:data, datasolo: false});
+    })
+    .catch(function(err) {
+      return next(err);
+    });
+}
+
+```
+
 ## Technologies Used
 
 * NodeJS
