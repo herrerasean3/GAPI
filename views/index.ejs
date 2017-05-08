@@ -8,7 +8,9 @@
 	<%- include ./partials/header %>	
 	
 	<main>
-    	<h1><%= title %></h1>
+
+        <%- include ./partials/search %>
+
     	<textarea rows="25" cols="50" readonly>
     	{
     		"cast_name": "Amuro Ray",
@@ -21,8 +23,6 @@
     	</textarea>
     </main>
 
-    
-
-	<%- include ./partials/script %>
+    <%- include ./partials/script %>
   </body>
 </html>

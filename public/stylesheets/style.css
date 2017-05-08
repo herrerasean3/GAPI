@@ -43,6 +43,10 @@ main {
 	flex-direction: column;
 }
 
+textarea {
+	background: rgba(255,255,255,.5);
+}
+
 a {
   color: #00B7FF;
 }

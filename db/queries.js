@@ -82,7 +82,7 @@ function getOneManufacturer(req, res, next) {
     .then(function(data) {
       res.status(200)
       console.log(data)
-      res.render('result', {title:"Gundam API", data:data, data: false});
+      res.render('result', {title:"Gundam API", datasolo: false, data: data});
     })
     .catch(function(err) {
       return next(err);
