@@ -26,9 +26,13 @@ Frontend Design | 2 Hours | 3 Hours | 100% | 3 Hours
 
 ## Database Schema
 
+![A view is generated each time a GET request is made.](https://volafile.org/get/SoUY93QLzkl3/20170508_090808.jpg)
+
 ## Pseudocode
 
 ## Wireframing
+
+![Concepted Page Layout](https://volafile.org/get/SoUEW7l4bMEf/20170508_084406.jpg)
 
 ## Backend Code Sample
 
