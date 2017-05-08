@@ -1,3 +1,4 @@
+var StylesheetSwitcher = require('stylesheet-switcher')
 var comp = new StylesheetSwitcher({
     target: document.querySelector('style-switcher'),
     data: {

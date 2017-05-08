@@ -17,12 +17,12 @@ GAPI started as me getting sidetracked a bit in a lab assignment, actually. Rath
 Component | Estimated Time | Invested Time | % Complete | Actual Time 
 --- | --- |--- |--- |---
 Database Setup | 4 hours | 5 Minutes | 100% | 5 Minutes 
-GET routes | 4 Hours | 1 hour | 50% | 1 Hours
-POST routes | 4 Hours | 0 minutes | 0% | 0
-DELETE routes | 4 Hours | 0 minutes | 0% | 0
-UPDATE routes | 4 Hours | 0 minutes | 0% | 0
-Backend Scripts | 5 hours | 10 minutes | ?% | 0
-Frontend HTML | 2 Hours | 0 Minutes | 0% | 0
+GET routes | 4 Hours | 4 Hours | 100% | 4 Hours
+POST routes | 4 Hours | 4 Hours | 100% | 4 Hours
+DELETE routes | 4 Hours | 1 Hour | 100% | 1 Hour
+UPDATE routes | 4 Hours | 2 Hours | 100% | 2 Hours
+Backend Scripts | 5 hours | 15 Hours | 100% | 15 Hours
+Frontend Design | 2 Hours | 3 Hours | 100% | 3 Hours
 
 ## Database Schema
 
@@ -34,4 +34,15 @@ Frontend HTML | 2 Hours | 0 Minutes | 0% | 0
 
 ## Technologies Used
 
-## Special Thanks to:
+* NodeJS
+* Express
+* pg-promise
+* JQuery
+* Postgres
+
+## Resources Used:
+
+* [How do I install my own fonts on Nodejs Server?](http://stackoverflow.com/questions/18369600/how-do-i-install-my-own-fonts-on-nodejs-server)
+* [Amuro font by Pixel Sagas](http://www.fontspace.com/pixel-sagas/amuro)
+* [Get URL and URL Parts in JavaScript](https://css-tricks.com/snippets/javascript/get-url-and-url-parts-in-javascript/)
+* [Javascript redirect URL](http://www.rapidtables.com/web/dev/javascript-redirect.htm)
