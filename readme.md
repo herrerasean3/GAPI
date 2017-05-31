@@ -1,5 +1,7 @@
 # GAPI
 
+<div style="text-align:center"><img src ="https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/zeon_logo_transparent.png" /></div>
+
 ## What the heck is GAPI?
 
 GAPI, or Gundam API, is an API devoted to the Gundam franchise with full range of CRUD support, built primarily using SQL.
@@ -26,13 +28,11 @@ Frontend Design | 2 Hours | 3 Hours | 100% | 3 Hours
 
 ## Database Schema
 
-![A view is generated each time a GET request is made.](https://volafile.org/get/SoUY93QLzkl3/20170508_090808.jpg)
-
-## Pseudocode
+![A view is generated each time a GET request is made.](https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/20170508_090808.jpg)
 
 ## Wireframing
 
-![Concepted Page Layout](https://volafile.org/get/SoUEW7l4bMEf/20170508_084406.jpg)
+![Concepted Page Layout](https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/20170508_084406.jpg)
 
 ## Backend Code Sample
 
