@@ -4,7 +4,7 @@ let pgp = require('pg-promise')();
 let connString = process.env.DATABASE_URL;
 let db = pgp(connString);
 
-//Runs SELECT * FROM meals.
+//Runs SELECT * FROM view.
 //Returns everything in the table without filtering.
 //Satisfies R in CRUD.
 function getAllCast(req, res, next) {
