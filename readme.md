@@ -1,6 +1,6 @@
 # GAPI
 
-<p style="align:center"><img src ="https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/zeon.png"/></p>
+<p style="align:center"><img src="https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/logo_transparent.png"/></p>
 
 ## What the heck is GAPI?
 
