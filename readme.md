@@ -1,6 +1,6 @@
 # GAPI
 
-<p style="align:center"><img src="https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/logo_transparent.png"/></p>
+<p style="align:center"><img src="https://github.com/herrerasean3/GAPI/blob/master/images/logo_transparent.png"/></p>
 
 ## What the heck is GAPI?
 
@@ -28,11 +28,11 @@ Frontend Design | 2 Hours | 3 Hours | 100% | 3 Hours
 
 ## Database Schema
 
-![A view is generated each time a GET request is made.](https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/20170508_090808.jpg)
+![A view is generated each time a GET request is made.](https://github.com/herrerasean3/GAPI/blob/master/images/20170508_090808.jpg)
 
 ## Wireframing
 
-![Concepted Page Layout](https://git.generalassemb.ly/herrerasean3/GAPI/blob/master/images/20170508_084406.jpg)
+![Concepted Page Layout](https://github.com/herrerasean3/GAPI/blob/master/images/20170508_084406.jpg)
 
 ## Backend Code Sample
 
